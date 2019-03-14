@@ -1,4 +1,8 @@
 let sobjects = {};
+/**
+ * SobjectStore类，存贮sobject集合
+ * 
+ */
 class SobjectStore {
   constructor(){
     sobjects = {};
@@ -9,6 +13,10 @@ class SobjectStore {
   getById(sid){
     return sobjects[sid];
   }
+  /**
+   * 通过entityId获取sobject
+   * @param {string} entityId 
+   */
   getByEntityId(entityId){
     let result;
     for(let id in sobjects){

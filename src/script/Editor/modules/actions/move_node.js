@@ -1,7 +1,7 @@
 import { geoVecInterp } from '../geo';
 
 export function actionMoveNode(nodeID, toLoc) {
-    console.log('move',nodeID,toLoc)
+
     var action = function(graph, t) {
         if (t === null || !isFinite(t)) t = 1;
         t = Math.min(Math.max(+t, 0), 1);
