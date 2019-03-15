@@ -11,8 +11,9 @@ class Forms extends Array {
       this.push(new Form(option))
     }
   }
-  modify(){
-
+  modify(form){
+    let aim = this.findIndex(el=>el.id==form.id);
+    Object.assign(aim,form);
   }
   remove(){
     

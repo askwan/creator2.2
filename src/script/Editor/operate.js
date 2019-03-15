@@ -1,5 +1,13 @@
-
 let editor;
+
+const ACTION = {
+  moveNode:'moveNode'
+}
+
+
+
+
+
 
 const getEditor = (_)=>{
   if(!_) return editor;
@@ -9,5 +17,6 @@ const getEditor = (_)=>{
 
 
 export {
-  getEditor
+  getEditor,
+  ACTION
 }

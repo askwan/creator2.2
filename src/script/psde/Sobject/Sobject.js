@@ -78,10 +78,11 @@ class Sobject {
   }
   //form
   addForm(){
-
+    
   }
-  modifyForm(){
-
+  modifyForm(form){
+    this.forms.modify(form);
+    this.actions.modifyForm(form.id);
   }
   deleteForm(){
 
@@ -139,6 +140,13 @@ class Sobject {
       if(bool) return true;
     }
     return false;
+  }
+  getFormByEntityId(entityId){
+    let reg = /[^0-9]/ig;
+    if(typeof entityId === 'string') entityId = entityId.replace(reg,'');
+    let form = this.forms.find(el=>this.isRelatedByEntity(entityId));
+    
+    return form;
   }
 }
 

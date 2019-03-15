@@ -14,7 +14,7 @@ export function uiRestore(context) {
             .attr('class', 'modal fillL col6');
 
         var introModal = modalSelection.select('.content');
-
+        modalSelection.remove();
         introModal
             .attr('class','cf');
 

@@ -8,7 +8,7 @@
 </template>
 <script>
   import Editor from '@/script/Editor';
-  import {getEditor} from '@/script/operate'
+  import {getEditor} from '@/script/Editor/operate'
   export default {
     data(){
       return {

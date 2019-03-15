@@ -849,7 +849,7 @@ export default {
                 loadNetwork:true,
                 geoWkt:extbbox,
                 // uids:"'"+_id+"'",
-                sdomains:7065321308160
+                sdomains:6454047162368
             }
             for(let key in defaultOptions){
                 if(defaultOptions[key]){

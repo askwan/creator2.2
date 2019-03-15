@@ -2,7 +2,7 @@
 import * as formated from './transform'
 // import psde from '../psde'
 import Psde from '../../psde'
-import {getEditor} from '@/script/operate';
+import {getEditor} from '../operate';
 const parse = list =>{
   let entities = [];
   let editor = getEditor();
@@ -30,7 +30,7 @@ const parse = list =>{
           // form.geom = oNode.id;
         }
         if(form.geotype==23) tags.area = 'yes';
-        let way = formated.createWay(nodeids, geom.uuid, tags, sobject);
+        let way = formated.createWay(nodeids, geom.id, tags, sobject);
         way.uuid = geom.uuid;
         way.vid = geom.vid;
         entities.push(way)

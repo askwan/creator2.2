@@ -42,6 +42,7 @@ class SobjectStore {
     }
     return result;
   }
+  
 }
 
 export default SobjectStore;
