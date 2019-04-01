@@ -8,6 +8,7 @@
 </template>
 <script>
   //askwan
+  // something
   import Editor from '@/script/Editor';
   import {getEditor} from '@/script/Editor/operate'
   export default {
