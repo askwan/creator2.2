@@ -105,10 +105,13 @@ export function coreHistory(context) {
     function change(previous, isAnnotated) {
         var difference = coreDifference(previous, history.graph());
         dispatch.call('change', this, difference);
+        
         if (isAnnotated) {
             // actions like dragging a node can fire lots of changes,
             // so use 'annotatedChange' to listen for grouped undo/redo changes
             dispatch.call('annotatedChange', this, difference);
+            
+            context.verifyEntity(isAnnotated);
         }
         return difference;
     }
@@ -152,7 +155,7 @@ export function coreHistory(context) {
 
             var transitionable = false;
             var action0 = arguments[0];
-
+            
             if (arguments.length === 1 ||
                 arguments.length === 2 && !_isFunction(arguments[1])) {
                 transitionable = !!action0.transitionable;

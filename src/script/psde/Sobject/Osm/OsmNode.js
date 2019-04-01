@@ -13,6 +13,7 @@ class OsmNode extends OsmEntity {
       flag:0,
       x:0,
       y:0,
+      refId:'',
       type:'node'
     };
     Object.assign(node,option);
@@ -24,6 +25,14 @@ class OsmNode extends OsmEntity {
   isRelated(id){
     id = this.clearId(id);
     return id == this.id;
+  }
+  normalized(context,entity){
+    this.x = entity.loc[0];
+    this.y = entity.loc[1];
+    this.id = this.clearId(entity.id);
+    this.uuid = entity.uuid;
+    this.vid = entity.vid;
+    return this;
   }
 }
 

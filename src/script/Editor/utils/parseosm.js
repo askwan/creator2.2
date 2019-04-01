@@ -13,6 +13,7 @@ const parse = list =>{
     let sobject = list[i];
     sobject.forms.forEach(form=>{
       let tags = formated.getTags(sobject.attributes);
+      if(!form.geom) return;
       if(form.geotype==21){
         let node = formated.createOsmNode(form.geom,tags,sobject,'point');
         entities.push(node);

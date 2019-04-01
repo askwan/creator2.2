@@ -57,7 +57,7 @@ export function coreContext() {
     addTranslation('en', dataEn);
     setLocale('en');
 
-    var dispatch = d3_dispatch('enter', 'exit', 'change','selectEntity','saveObjects');
+    var dispatch = d3_dispatch('enter', 'exit', 'change','selectEntity','saveObjects','verifyEntity');
 
     // https://github.com/openstreetmap/iD/issues/772
     // http://mathiasbynens.be/notes/localstorage-pattern#comment-9
@@ -555,6 +555,10 @@ export function coreContext() {
             dispatch.call('selectEntity',this,ele)
         // }
     };
+
+    context.verifyEntity = function(tags){
+        dispatch.call('verifyEntity',this,tags);
+    }
 
 
 

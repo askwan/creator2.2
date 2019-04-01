@@ -38,10 +38,13 @@ class Form {
   isInclude(entityId){
     return this.geom.id == entityId ? true : false;
   }
+  // isRelateEntityId(entityId){
+  //   this.geom.
+  // }
   delete(){
     this.show = false;
   }
-  undo(){
+  undoDelete(){
     this.show = true;
   }
 }

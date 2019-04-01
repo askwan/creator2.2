@@ -11,7 +11,7 @@ class OsmWay extends OsmEntity {
       id:'',
       uuid:'',
       nodes:[],
-      refOb: {},
+      refId: '',
       flag:0,
       type:'way'
     }
@@ -28,6 +28,15 @@ class OsmWay extends OsmEntity {
     id = this.clearId(id);
     let node = this.nodes.find(el=>el.isRelated(id));
     return Boolean(node);
+  }
+  normalized(context,entity){
+    this.id = this.clearId(entity.id);
+    this.uuid = entity.uuid;
+    this.vid = entity.vid;
+    this.nodes = entity.nodes.map(nodeId=>{
+      return new OsmNode(context,context.entity(nodeId))
+    })
+    return this
   }
 }
 

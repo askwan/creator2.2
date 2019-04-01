@@ -20,7 +20,7 @@ import SobjectStore from './store/SobjectStore';
 import OtypeStore from './store/OtypeStore'
 import HistoryStore from './store/HistoryStore'
 import { ACTION } from './operate';
-import OsmNode from '../psde/Sobject/Osm/OsmNode';
+// import psde from ''
 
 let context;
 
@@ -52,8 +52,18 @@ export default class Editor extends Evented {
       if(!ele) return
       // console.log(this.historyStore.getHistorys())
       // console.log(ele);
-      // console.log(this.sobjectStore.getByEntityId(ele));
+      
+      // let sobject = this.sobjectStore.getByEntityId(ele);
+      // console.log(sobject);
+      // sobject.forms.forEach(el=>{
+      //   console.log(el.geom,'form');
+      //   console.log(el.geom.normalized(context,context.entity(ele),'transform'))
+      // });
       // let sobjects = this.sobjectStore.getRelatedByEntityId(ele);
+      // this.getChanged();
+    })
+    context.on('verifyEntity',()=>{
+      this.getChanged();
     })
   }
   debounceFn(){
@@ -73,14 +83,14 @@ export default class Editor extends Evented {
   }
   changeForm(id){
     let sobjects = this.sobjectStore.getRelatedByEntityId(id);
-    let entity = context.entity(id);
+    // let entity = context.entity(id);
     // console.log(entity);
     // let change = {x:entity.loc[0],y:entity.loc[1],nodeId:id}
     // sobjects.forEach(sobject=>{
     //   let form = sobject.getFormByEntityId(id);
     //   form.geom.update({id:id,x:})
     // })
-    let ways = context.history().graph().parentWays(entity);
+    // let ways = context.history().graph().parentWays(entity);
     
     
     let changed = {
@@ -88,5 +98,43 @@ export default class Editor extends Evented {
       operate:ACTION.moveNode
     };
     return changed
+  }
+  getChanged(){
+    let graph = context.history().graph();
+    let changes = Object.assign({},graph.entities);
+    console.log(graph,'graph');
+    // console.log('ways',this.sobjectStore.ways());
+    // console.log('nodes',this.sobjectStore.nodes());
+    // console.log('relations',this.sobjectStore.relations());
+    let nodes = [] ,ways = [],relations = [];
+    for(let id in changes){
+      let change = changes[id];
+      if(id.includes('n')){
+        nodes.push({id,change})
+      }else if(id.includes('w')){
+        ways.push({id,change})
+      }else if(id.includes('r')){
+        relations.push({id,change})
+      }
+      // console.log(change);
+      // let sobject = this.sobjectStore.getByEntityId(id);
+      // let sobjects = this.sobjectStore.getRelatedByEntityId(id);
+      // console.log(sobject,sobjects);
+      
+      // console.log(nodes,ways,relations);
+      let a = this.sobjectStore.getFormByEntityId(id);
+      console.log(a,888888)
+    }
+
+    //nodes
+    // nodes.forEach(el=>{
+    //   let sobjects = el.sobjectStore.getRelatedByEntityId(el.id);
+    //   if(el.change){
+    //     sobjects.forEach(sobject=>{
+    //       sobject.forms.getFormByEntityId(el);
+    //     })
+    //   }
+    // })
+
   }
 }

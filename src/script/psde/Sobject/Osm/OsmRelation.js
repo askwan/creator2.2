@@ -56,6 +56,27 @@ class OsmRelation extends OsmEntity {
     let member = this.members.find(el=>el.refEntity.isRelated(id));
     return Boolean(member);
   }
+  normalized(context,entity){
+    this.id = this.clearId(entity.id);
+    this.uuid = entity.uuid;
+    this.vid = entity.vid;
+    this.members = entity.members.map(member=>{
+      let refEntity;
+      if(member.type==='node'){
+        refEntity = new OsmNode().normalized(context,context.entity(member.id));
+      }else if(member.type== 'way'){
+        refEntity = new OsmWay().normalized(context,context.entity(member.id));
+      }else if(member.type=='relation'){
+        refEntity = new OsmRelation().normalized(context,context.entity(member.id));
+      }
+      return new Member({
+        id:this.clearId(member.id),
+        role:member.role,
+        refEntity:refEntity
+      });
+    });
+    return this;
+  }
 }
 
 export default OsmRelation

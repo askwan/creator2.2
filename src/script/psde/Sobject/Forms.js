@@ -18,6 +18,13 @@ class Forms extends Array {
   remove(){
     
   }
+  getFormByEntityId(id){
+    let form = this.find(()=>this.geom.isRelated(id));
+    return form;
+  }
+  getFormByFormId(formid){
+    return this.find(form=>form.id==formid);
+  }
 }
 
 export default Forms
