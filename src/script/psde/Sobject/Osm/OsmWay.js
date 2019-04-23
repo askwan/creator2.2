@@ -26,6 +26,7 @@ class OsmWay extends OsmEntity {
   }
   isRelated(id){
     id = this.clearId(id);
+    if(this.id == id) return true;
     let node = this.nodes.find(el=>el.isRelated(id));
     return Boolean(node);
   }

@@ -53,6 +53,7 @@ class OsmRelation extends OsmEntity {
   }
   isRelated(id){
     id = this.clearId(id);
+    if(this.id==id) return true;
     let member = this.members.find(el=>el.refEntity.isRelated(id));
     return Boolean(member);
   }

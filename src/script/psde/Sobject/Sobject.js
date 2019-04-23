@@ -59,6 +59,7 @@ class Sobject {
   modifyObject(obj){
     Object.assign(this,obj);
     this.actions.modifyObject(this.id);
+    return this
   }
   deleteObject(){
     this.actions.deleteObject(this.id);
@@ -67,14 +68,18 @@ class Sobject {
   addAttribute(attribute){
     this.attributes.add(attribute);
     this.actions.addAttribute(attribute.fid);
+    return this;
   }
   modifyAttribute(attribute){
     this.attributes.modify(attribute);
+    // console.log(this,'this')
     this.actions.modifyAttribute(attribute.fid);
+    return this;
   }
   deleteAttribute(attribute){
     this.attributes.remove(attribute);
-    this.actions.deleteAttribute(attribute.fid)
+    this.actions.deleteAttribute(attribute.fid);
+    return this;
   }
   //form
   addForm(){
@@ -117,6 +122,29 @@ class Sobject {
   deletePosition(){
 
   }
+  toJSON(){
+    let obj = {};
+    Object.assign(obj,this);
+    obj.models = {
+      models:obj.models
+    };
+    obj.network = {
+      nodes:obj.network
+    };
+    obj.otype.connectors = {
+      connectors:[]
+    }
+    obj.otype.fields = {
+      fields:[]
+    }
+    obj.otype.formStyles = {
+      styles:[]
+    }
+    // obj.otype.models = {
+    //   models:obj.otype.models
+    // }
+    return obj
+  }
   isIncludeEntity(entityId){
    let bool = false;
    let reg = /[^0-9]/ig;
@@ -144,7 +172,7 @@ class Sobject {
   getFormByEntityId(entityId){
     let reg = /[^0-9]/ig;
     if(typeof entityId === 'string') entityId = entityId.replace(reg,'');
-    let form = this.forms.find(el=>this.isRelatedByEntity(entityId));
+    let form = this.forms.find(()=>this.isRelatedByEntity(entityId));
     
     return form;
   }

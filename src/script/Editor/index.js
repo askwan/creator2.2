@@ -20,8 +20,7 @@ import SobjectStore from './store/SobjectStore';
 import OtypeStore from './store/OtypeStore'
 import HistoryStore from './store/HistoryStore'
 import { ACTION } from './operate';
-// import psde from ''
-
+import psde from '../psde'
 let context;
 
 
@@ -31,14 +30,14 @@ export default class Editor extends Evented {
     this.sobjectStore = new SobjectStore();
     this.otypeStore = new OtypeStore();
     this.historyStore = new HistoryStore();
-    this.debounceFn();
+    // this.debounceFn();
     this.init(dom,callback);
   }
   init(dom,callback){
     context = iD.Context();
     // context.assetPath('/public/')
     context.ui()(dom,()=>{
-      this.setCenter({lng:120.9068145226417,lat:38.38792723587976,zoom:18})
+      this.setCenter({lng:113.726093016419,lat:34.772796581402,zoom:17})
       this.listen();
       if(typeof callback === 'function') callback();
     })
@@ -78,8 +77,6 @@ export default class Editor extends Evented {
       let changed = this.changeForm(option.id)
       this.addHistory(changed);
     }
-    
-    
   }
   changeForm(id){
     let sobjects = this.sobjectStore.getRelatedByEntityId(id);
@@ -103,38 +100,30 @@ export default class Editor extends Evented {
     let graph = context.history().graph();
     let changes = Object.assign({},graph.entities);
     console.log(graph,'graph');
-    // console.log('ways',this.sobjectStore.ways());
-    // console.log('nodes',this.sobjectStore.nodes());
-    // console.log('relations',this.sobjectStore.relations());
-    let nodes = [] ,ways = [],relations = [];
+    console.log(changes,'changes');
+    // let nodes = [] ,ways = [],relations = [];
     for(let id in changes){
       let change = changes[id];
-      if(id.includes('n')){
-        nodes.push({id,change})
-      }else if(id.includes('w')){
-        ways.push({id,change})
-      }else if(id.includes('r')){
-        relations.push({id,change})
+      // console.log(this.sobjectStore.getGeomByEntityId(id));
+      console.log(this.sobjectStore.getRelatedByEntityId(id));
+      if(!change){
+        console.log(id);
+        console.log(graph._parentWays[id])
+      }else {
+        console.log(this.sobjectStore.getGeomByEntityId(id),'way');
+        if(change.type === 'node'){
+          let parentWays = graph.parentWays(change);
+          console.log(parentWays)
+        }else if(change.type === 'way'){
+          // ways.push({id,change})
+        }else if(change.type === 'relation'){
+          // relations.push({id,change})
+        }
       }
-      // console.log(change);
-      // let sobject = this.sobjectStore.getByEntityId(id);
-      // let sobjects = this.sobjectStore.getRelatedByEntityId(id);
-      // console.log(sobject,sobjects);
       
-      // console.log(nodes,ways,relations);
-      let a = this.sobjectStore.getFormByEntityId(id);
-      console.log(a,888888)
-    }
+      
 
-    //nodes
-    // nodes.forEach(el=>{
-    //   let sobjects = el.sobjectStore.getRelatedByEntityId(el.id);
-    //   if(el.change){
-    //     sobjects.forEach(sobject=>{
-    //       sobject.forms.getFormByEntityId(el);
-    //     })
-    //   }
-    // })
+    }
 
   }
 }

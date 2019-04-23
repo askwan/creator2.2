@@ -1,6 +1,8 @@
 import axios from 'axios'
 export default class Base {
-  constructor(){}
+  constructor(option={}){
+    this.sdomains = option.sdomains;
+  }
   get(name,options){
     let url = this.url+name;
     // options.token = this.getToken();
@@ -60,5 +62,8 @@ export default class Base {
   cacheStatus(list){
     let result = list.find(el=>el===this.name);
     return Boolean(result);
+  }
+  getsdomains(){
+    return this.sdomains
   }
 }

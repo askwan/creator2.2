@@ -11,10 +11,10 @@ class Actions extends Array {
     let index = this.findIndex(el=>el.id==id&&el.operation==operation);
     if(index==-1) this.push(new Action({id,operation}));
   }
-  find(id,operation){
-    let result = this.Actions.find(el=>el.id==id&&el.operation == operation);
-    return result;
-  }
+  // find(id,operation){
+  //   let result = this.Actions.find(el=>el.id==id&&el.operation == operation);
+  //   return result;
+  // }
   del(id,operation){
     let index = this.Actions.find(el=>el.id==id&&el.operation == operation);
     this.splice(index,1);
@@ -33,11 +33,11 @@ class Actions extends Array {
     this.add({id,operation})
   }
   //attr
-  addAttr(id){
+  addAttribute(id){
     let operation = FLAG.addAttribute;
     if(!this.isNew() && !this.isDelete()) this.add(id,operation);
   }
-  modifyAttr(id){
+  modifyAttribute(id){
     let operation = FLAG.modifyAttribute;
     if(!this.isNew() && !this.isDelete()) {
       let addAction = this.find(el=>el.id==id&&el.operation==(FLAG.addAttribute));
@@ -47,7 +47,7 @@ class Actions extends Array {
       }
     }
   }
-  deleteAttr(id){
+  deleteAttribute(id){
     let operation = FLAG.deleteAttribute;
     if(!this.isNew() && !this.isDelete()) {
       let addAction = this.findIndex(el=>el.id==id&&el.operation==(FLAG.addAttribute));

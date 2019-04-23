@@ -13,6 +13,9 @@ class Style {
       type:''
     }
     Object.assign(style,option);
+    if(option.type===50){
+      style.data = JSON.parse(style.data)
+    }
     Object.assign(this,style);
   }
 }

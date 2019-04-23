@@ -6,10 +6,11 @@ class FormStyles extends Array {
   }
   add(object){
     let style = new Style(object);
-    let index = this.findIndex(el=>el.id==style.id);
-    if(index==-1) this.push(style);
+    this.push(style);
+    // let index = this.findIndex(el=>el.id==style.id);
+    // if(index==-1) this.push(style);
   }
-  toJson(){
+  toJSON(){
     return {
       styles:this
     }

@@ -34,6 +34,10 @@ class OsmNode extends OsmEntity {
     this.vid = entity.vid;
     return this;
   }
+  changeLoc(loc){
+    this.x = loc[0];
+    this.y = loc[1];
+  }
 }
 
 export default OsmNode;
